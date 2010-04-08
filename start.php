@@ -19,9 +19,7 @@ function feeds_init() {
 	register_page_handler('feeds','feeds_page_handler');
 					
 	// Set up menu for users
-	if (isloggedin()) {		
-		add_menu(elgg_echo('item:object:feeds'), $CONFIG->wwwroot . "pg/feeds/all/");
-	}
+	add_menu(elgg_echo('item:object:feeds'), $CONFIG->wwwroot . "pg/feeds/all/");
 		
 	//add to the css
 	elgg_extend_view('css', 'feeds/css');
