@@ -12,13 +12,19 @@ require_once(dirname(__FILE__).'/lib/feeds_api.php');
 $filter = get_input('filter','feeds');
 $offset = get_input('offset',0);
 elgg_push_breadcrumb(elgg_echo('feeds:all'), $CONFIG->wwwroot."mod/feeds/all.php");
-elgg_push_breadcrumb(sprintf(elgg_echo("feeds:sources"),$page_owner->name));
+elgg_push_breadcrumb(elgg_echo("feeds:sources"));
 
 $feed_count = feeds_get_feed_url_count();
 
 //set feeds header
 $area1 .= elgg_view('navigation/breadcrumbs');
-$area1 .= elgg_view_title(elgg_echo('feeds:sources'));
+
+$area1 .= "<div class='clearfloat' id='content_header'><div class='content_header_title'>".elgg_view_title(elgg_echo('feeds:sources'))."</div>";
+if (isloggedin()) {
+	$area1 .= "<div class='content_header_options'><a class='action_button' href='" . $CONFIG->wwwroot . "pg/feeds/" .$_SESSION['user']->username. "/new/'>".elgg_echo('feeds:addfeed:title')."</a></div>";
+}
+$area1 .= "</div>";
+
 
 $area3 = elgg_view('feeds/nav',array('filter' => "feeds",'offset'=>$offset));
 $area3 .= elgg_view('feeds/sidebar', array('count' => $feed_count));

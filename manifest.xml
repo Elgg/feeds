@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest>
-        <field key="author" value="Kevin Jardine, Curverider Ltd, Cash Costello (this was base on his Simplepie plugin)" />
+        <field key="author" value="Kevin Jardine, Curverider Ltd, Cash Costello (this was based on his Simplepie plugin)" />
         <field key="version" value="0.5" />
         <field key="description" value="RSS aggregator" />
         <field key="website" value="http://www.elgg.org/" />

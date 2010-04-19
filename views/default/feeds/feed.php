@@ -8,7 +8,7 @@ if ($date_format) {
 	$date_format = 'l jS \of F'; //'F jS, Y';
 }
 
-echo elgg_view('feeds/js');
+//echo elgg_view('feeds/js');
 
 ?>
 <div id="feed_feeds">
@@ -24,7 +24,7 @@ if ($feed && ($feed_items = $feed->get_items($offset,$limit))) {
 			foreach ($group as $item) {
 ?>
 				<div class="feed_item_condensed">
-					<div class="feed_title"><?php echo '<a href="'.$item->get_permalink().'">'.$item->get_title().'</a>'; ?></div>
+					<div class="feed_title"><h2><?php echo '<a href="'.$item->get_permalink().'">'.$item->get_title().'</a>'; ?></h2></div>
 				</div>
 <?php 		}
 			echo "</div>";
@@ -36,10 +36,10 @@ if ($feed && ($feed_items = $feed->get_items($offset,$limit))) {
 			<div class="feed_group">
 			<div class="feed_date"><?php echo $group_date; ?></div>
 			<?php foreach ($group as $item) {?>
-			<div class="feed_item_full">
-			<div class="feed_title"><?php echo '<a href="'.$item->get_permalink().'">'.$item->get_title().'</a>'; ?></div>
-			<div class="feed_content"><?php echo $item->get_description(); ?></div>
-			<div class="feed_source"><?php echo elgg_echo('feeds:via').' '.'<a href="'.$item->get_feed()->get_link().'">'.$item->get_feed()->get_title().'</a>'; ?></div>
+			<div class="feed_item_full clearfloat">
+				<div class="feed_title"><h2><?php echo '<a href="'.$item->get_permalink().'">'.$item->get_title().'</a>'; ?></h2></div>
+				<div class="feed_content"><?php echo $item->get_description(); ?></div>
+				<div class="entity_subtext"><?php echo elgg_echo('feeds:via').' '.'<a href="'.$item->get_feed()->get_link().'">'.$item->get_feed()->get_title().'</a>'; ?></div>
 			</div>
 			<?php }
 			?>
@@ -48,7 +48,7 @@ if ($feed && ($feed_items = $feed->get_items($offset,$limit))) {
 		}
 	}
 } else {
-	echo elgg_echo('feeds:no_feeds');
+	echo "<p class='margin_top'>".elgg_echo('feeds:no_feeds')."</p>";
 }
 ?>
 </div>

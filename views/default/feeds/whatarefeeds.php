@@ -1,3 +1,1 @@
-<div id="feed_instructions">
-<p>This will be a paragraph about feeds and how you use them.</p>
-</div>
+<p class="margin_top">This will be a paragraph about feeds and how you use them.</p>
