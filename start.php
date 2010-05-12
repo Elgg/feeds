@@ -62,8 +62,10 @@ function feeds_page_handler($page) {
 				break;
 		}
 	} else {
-		include(dirname(__FILE__) . "/index.php");
-		return true;
+		if($page[0] != 'all'){
+			include(dirname(__FILE__) . "/index.php");
+			return true;
+		}
 	}
 
 	return false;
