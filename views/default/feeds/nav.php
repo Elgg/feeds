@@ -31,4 +31,4 @@ switch($vars['filter']) {
 			}
 		?>
 	</ul>
-</div><br />
+</div>
