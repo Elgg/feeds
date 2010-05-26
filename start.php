@@ -77,10 +77,12 @@ function feeds_page_handler($page) {
 function feeds_profile_menu($hook, $entity_type, $return_value, $params) {
 	global $CONFIG;
 	
-	$return_value[] = array(
-		'text' => elgg_echo('feeds'),
-		'href' => "{$CONFIG->url}pg/feeds/{$params['owner']->username}",
-	);
+	if (!($params['owner'] instanceof ElggGroup)) {
+		$return_value[] = array(
+			'text' => elgg_echo('feeds'),
+			'href' => "{$CONFIG->url}pg/feeds/{$params['owner']->username}",
+		);
+	}
 	
 	return $return_value;
 }
