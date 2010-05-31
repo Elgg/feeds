@@ -35,7 +35,7 @@
 	'feeds:delete_response' => "The feed has been deleted.",
 	'feeds:feed_admin' => "Admin",
 	'feeds:admin_all_feeds:title' => "Admin all feeds",
-	'feeds:intro' => "You can subscribe to your favourite feeds using this simple feed reader. Look out for the RSS icon when browsing the web, click on it and add the URL below.",
+	'feeds:intro' => "You can subscribe to your favourite feeds using this simple feed reader. Look out for the RSS icon when browsing the web, click on it and add the URL below. If you add a URL which is not a valid RSS feed, it will not display.",
 	'feeds:alreadysubscribed' => "You have subscribed to a feed and can edit or delete using the options below.",
 	
 	);
