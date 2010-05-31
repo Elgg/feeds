@@ -1,1 +1,1 @@
-<p class="margin_top">This will be a paragraph about feeds and how you use them.</p>
+<p class="margin_top"><?php echo elgg_echo('feeds:intro'); ?></p>
