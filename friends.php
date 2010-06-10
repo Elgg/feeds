@@ -58,7 +58,7 @@ if (empty($callback) && isloggedin()) {
 if ($feed) {
 	$body = elgg_view('feeds/feed',array('feed'=>$feed,'filter'=>$filter,'limit'=>$limit,'offset'=>$offset));
 	$count = $feed->get_item_quantity();
-	$pagination = elgg_view('navigation/pagination',array('limit'=>$limit,'offset'=>$offset,'count'=>$count,'baseurl'=>$filter));
+	$pagination = elgg_view('navigation/pagination', array('limit' => $limit, 'offset' => $offset, 'count' => $count));
 	$body = $body.$pagination;
 	if (empty($callback)) {
 		$body = $body;
