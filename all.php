@@ -24,7 +24,11 @@ $nav = elgg_view('feeds/nav',array('filter' => $filter,'offset'=>$offset));
 $feed_count = feeds_get_feed_url_count();
 $feed = feeds_get_feed();
 
-$area1 = elgg_view('page_elements/content_header', array('context' => "everyone", 'type' => 'feeds'));
+$tabs = elgg_view('page_elements/content_header', array(
+	'context' => 'everyone',
+	'type' => 'feeds',
+	'all_link' => "{$CONFIG->site->url}pg/feeds/all",
+));
 
 if (empty($callback) && isloggedin()) {
 	$userid = get_loggedin_userid();
@@ -36,11 +40,10 @@ if (empty($callback) && isloggedin()) {
 if ($feed) {
 	$body = elgg_view('feeds/feed',array('feed'=>$feed,'filter'=>$filter,'limit'=>$limit,'offset'=>$offset));
 	$count = $feed->get_item_quantity();
-	$pagination = elgg_view('navigation/pagination',array('limit'=>$limit,'offset'=>$offset,'count'=>$count,'baseurl'=>$filter));
+	$pagination = elgg_view('navigation/pagination',array('limit'=>$limit,'offset'=>$offset,'count'=>$count));
 	$body = $body.$pagination;
 	if (empty($callback)) {
-		$body = $body;
-		page_draw($title,elgg_view_layout('one_column_with_sidebar',$area1.$body,$area3));
+		page_draw($title,elgg_view_layout('one_column_with_sidebar', $tabs.$body,$area3));
 	} else {
 		echo $body;
 	}
@@ -48,7 +51,7 @@ if ($feed) {
 	$body = elgg_view('feeds/feed',array('feed'=>$feed,'filter'=>$filter,'limit'=>$limit,'offset'=>$offset));
 	$body = $body;
 	if (empty($callback)) {
-		page_draw($title,elgg_view_layout('one_column_with_sidebar',$area1.$body, $area3));
+		page_draw($title,elgg_view_layout('one_column_with_sidebar', $tabs.$body, $area3));
 	} else {
 		echo $body;
 	}

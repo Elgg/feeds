@@ -22,7 +22,11 @@ elgg_push_breadcrumb(sprintf(elgg_echo("feeds:user"),$page_owner->name));
 
 //set feeds header
 if(page_owner() == get_loggedin_userid()) {
-	$area1 .= elgg_view('page_elements/content_header', array('context' => "friends", 'type' => 'feeds'));
+	$area1 = elgg_view('page_elements/content_header', array(
+		'context' => 'friends',
+		'type' => 'feeds',
+		'all_link' => "{$CONFIG->site->url}pg/feeds/all",
+	));
 } else {
 	$area1 .= elgg_view('navigation/breadcrumbs');
 	$area1 .= elgg_view('page_elements/content_header_member', array('type' => 'feeds'));
