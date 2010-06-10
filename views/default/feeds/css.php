@@ -25,7 +25,7 @@
 	border-bottom:none;
 }
 .feed_group .feed_date {
-	background-color:#0054A7;
+	background-color:#888888;
 	color:white;
 	font-size:1.2em;
 	margin:0 0 15px;
