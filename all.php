@@ -21,7 +21,7 @@ $callback = get_input('callback');
 
 $title = elgg_echo('feeds:title');
 $nav = elgg_view('feeds/nav',array('filter' => $filter,'offset'=>$offset));
-$feed_count = feeds_get_feed_url_count();
+$feed_count = feeds_get_feed_urls(0, TRUE);
 $feed = feeds_get_feed();
 
 $tabs = elgg_view('page_elements/content_header', array(

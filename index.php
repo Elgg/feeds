@@ -17,7 +17,7 @@ if ($page_owner === false || is_null($page_owner)) {
 	set_page_owner($page_owner->getGUID());
 }
 
-elgg_push_breadcrumb(elgg_echo('feeds:all'), $CONFIG->wwwroot."mod/feeds/all.php");
+elgg_push_breadcrumb(elgg_echo('feeds:all'), "{$CONFIG->wwwroot}pg/feeds/all");
 elgg_push_breadcrumb(sprintf(elgg_echo("feeds:user"),$page_owner->name));
 
 //set feeds header
@@ -45,7 +45,7 @@ $callback = get_input('callback');
 $title = elgg_echo('feeds:myfeed:title');
 
 $nav = elgg_view('feeds/nav',array('filter' => $filter,'offset'=>$offset));
-$feed_count = feeds_get_feed_url_count($page_owner->getGUID());
+$feed_count = feeds_get_feed_urls($page_owner->getGUID(), TRUE);
 $feed = feeds_get_feed($page_owner->getGUID());
 
 if (empty($callback) && isloggedin()) {

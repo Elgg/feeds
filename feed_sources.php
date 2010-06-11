@@ -14,7 +14,7 @@ $offset = get_input('offset',0);
 elgg_push_breadcrumb(elgg_echo('feeds:all'), $CONFIG->wwwroot."mod/feeds/all.php");
 elgg_push_breadcrumb(elgg_echo("feeds:sources"));
 
-$feed_count = feeds_get_feed_url_count();
+$feed_count = feeds_get_feed_urls(0, TRUE);
 
 //set feeds header
 $area1 .= elgg_view('navigation/breadcrumbs');

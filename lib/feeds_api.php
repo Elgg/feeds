@@ -2,41 +2,92 @@
 
 require_once(dirname(__FILE__).'/simplepie.inc');
 
-function feeds_get_feed($user) {
+/**
+ * Returns a SimplePie object containing the appropriate RSS feeds.
+ *
+ * Assigns the user's registered feeds. If the $friends flag is enabled,
+ * the user's friends' feeds are assigned instead.
+ *
+ * @param int $user
+ * @param bool $friends
+ * @return SimplePie
+ */
+function feeds_get_feed($user, $friends=FALSE) {
 	global $CONFIG;
-	$feed_urls = feeds_get_feed_urls('','',$user);
-	$urls = array();
-	if ($feed_urls) {
+	
+	$feed_urls = ($friends === FALSE) ? feeds_get_feed_urls($user) : feeds_get_friend_feed_urls($user);
+	if (is_array($feed_urls) && !empty($feed_urls)) {
+		// retrieve registered URLs from feeds
+		$urls = array();
 		foreach($feed_urls as $feed_url) {
 			$urls[] = $feed_url->url;
 		}
+		
 		$feed = new SimplePie();
 		$feed->set_feed_url(array_unique($urls));
+		
 		$cache_duration = get_plugin_setting('cache_duration','feeds');
 		if (isset($cache_duration)) {
 			$feed->set_cache_duration($cache_duration);
 		} else {
 			$feed->set_cache_duration(600);
 		}
-		if (!file_exists($CONFIG->dataroot . 'simplepie_cache')) {
-			@mkdir($CONFIG->dataroot . 'simplepie_cache');
+		
+		if (!file_exists("{$CONFIG->dataroot}simplepie_cache")) {
+			@mkdir("{$CONFIG->dataroot}simplepie_cache");
 		}
-		$feed->set_cache_location($CONFIG->dataroot.'simplepie_cache');
+		
+		$feed->set_cache_location("{$CONFIG->dataroot}simplepie_cache");
 		if ($feed->init()) {
 			return $feed;
 		}
 	}
+	
 	return false;
 }
 
-function feeds_get_feed_urls($limit=999,$offset=0,$user='') {
-	$user = (int) $user;
-	return elgg_get_entities(array('types' => 'object', 'subtypes' => 'feeds_feed_url', 'limit' => $limit, 'offset' => $offset, 'owner_guids' => $user));
+/**
+ * Returns an array of RSS feeds registered by the user.
+ *
+ * If the $count flag is enabled, returns the count of feeds instead.
+ *
+ * @param int $user_id
+ * @param bool $count
+ * @param array ElggObject | int
+ */
+function feeds_get_feed_urls($user_id, $count=FALSE) {
+	return elgg_get_entities(array(
+		'types' => 'object',
+		'subtypes' => 'feeds_feed_url',
+		'owner_guids' => (int) $user_id,
+		'limit' => 0,
+		'count' => $count,
+	));
 }
 
-function feeds_get_feed_url_count($user='') {
-	$user = (int) $user;
-	return elgg_get_entities(array('types' => 'object', 'subtypes' => 'feeds_feed_url', 'owner_guids' => $user, 'count' => true));
+/**
+ * Returns an array of RSS feeds registered by the user's friends.
+ *
+ * If the $count flag is enabled, returns the count of feeds instead.
+ *
+ * @param int $user_id
+ * @param bool $count
+ * @return array ElggObject | int
+ */
+function feeds_get_friend_feed_urls($user_id, $count=FALSE) {
+	// obtain a list of friends' GUIDs
+	$owner_guids = array();
+	foreach (get_user_friends($user_id, ELGG_ENTITIES_ANY_VALUE, 0) as $friend) {
+		$owner_guids[] = $friend->getGUID();
+	}
+	
+	return elgg_get_entities(array(
+		'types' => 'object',
+		'subtypes' => 'feeds_feed_url',
+		'owner_guids' => $owner_guids,
+		'limit' => 0,
+		'count' => $count,
+	));
 }
 
 function feeds_get_feed_url($user_id) {
